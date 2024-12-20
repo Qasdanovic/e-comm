@@ -4,4 +4,4 @@ import { thunk }  from 'redux-thunk'
 
 const enhancer = window.__REDUX_DEVTOOLS_EXTENSION__;
 
-export const store = createStore(rootReducers,enhancer(applyMiddleware(thunk)))
+export const store = createStore(rootReducers,applyMiddleware(thunk))
