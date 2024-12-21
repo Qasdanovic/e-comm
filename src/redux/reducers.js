@@ -15,7 +15,6 @@ export const ProductsReducer = (state=initialState, action) => {
             return {
                 ...state,
                 loading : true ,
-                error : null
             }
 
         case FETCH_SUCCESS:
