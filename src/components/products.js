@@ -9,41 +9,45 @@ function Products() {
   const dispatch = useDispatch();
   const { products, loading, error } = useSelector((state) => state.products);
 
-  const { cardProducts } = useSelector(state => state.cart)
-  
+  const { cardProducts } = useSelector((state) => state.cart);
 
   useEffect(() => {
     dispatch(fetchApi());
   }, [dispatch]);
 
-  useEffect(() => {
-    console.log(products);
-    console.log(loading);
-  }, [products, loading]);
+  // useEffect(() => {
+  //   console.log(products);
+  //   console.log(loading);
+  // }, [products, loading]);
 
   return (
     <div>
       <Navbar />
-      <div className="container mt-5">
-        <div className="row g-4">
-          {loading &&
-            Array.from({ length: 8 }).map((_, index) => (
-              <div className="col-12 col-sm-6 col-md-4 col-lg-3" key={index}>
-                <Skeleton />
-              </div>
+      <div className="mt-8 px-4 md:px-8">
+        {/* Skeleton Loading State */}
+        {loading && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {Array.from({ length: 8 }).map((_, index) => (
+              <Skeleton key={index} />
             ))}
-        </div>
+          </div>
+        )}
 
-        <div className="row g-4">
-          {products?.products?.length &&
-            products.products.map((prod) => (
-              <div className="col-12 col-sm-6 col-md-4 col-lg-3" key={prod.id}>
-                <ProductCard prod={prod} />
-              </div>
+        {/* Products Grid */}
+        {!loading && products?.products?.length > 0 && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 mt-6">
+            {products.products.map((prod) => (
+              <ProductCard key={prod.id} prod={prod} />
             ))}
-        </div>
+          </div>
+        )}
 
-        {error && <div>error while fetching data</div>}
+        {/* Error Message */}
+        {error && (
+          <div className="text-center text-red-500 font-semibold mt-6">
+            Error while fetching data
+          </div>
+        )}
       </div>
     </div>
   );
