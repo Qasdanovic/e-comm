@@ -41,7 +41,7 @@ function SideBarProd({ product }) {
         <button
           className="px-2 py-1 bg-gray-200 text-gray-600 rounded hover:bg-gray-300 transition"
           onClick={() => {
-            return product.quantity === 0
+            return product.quantity === 1
               ? null
               : dispatch(decrement_quantity(product.id));
           }}>
