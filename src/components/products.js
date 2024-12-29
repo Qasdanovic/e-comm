@@ -10,15 +10,16 @@ function Products() {
   const { products, loading, error } = useSelector((state) => state.products);
 
   const { cardProducts } = useSelector((state) => state.cart);
+  console.log(cardProducts)
 
   useEffect(() => {
     dispatch(fetchApi());
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   console.log(products);
-  //   console.log(loading);
-  // }, [products, loading]);
+  useEffect(() => {
+    console.log(cardProducts);
+    // console.log(loading);
+  }, [products, loading, cardProducts]);
 
   return (
     <div>
