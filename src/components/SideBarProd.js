@@ -1,51 +1,61 @@
-import React, {useEffect} from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { decrement_quantity } from '../redux/Cart/CartActions'
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  decrement_quantity,
+  delete_prod_in_cart,
+  increment_quantity,
+} from "../redux/Cart/CartActions";
+import { TbXboxXFilled } from "react-icons/tb";
 
-function SideBarProd({product}) {
-
-  const dispatch = useDispatch()
-  const cardProducts = useSelector(state => state.card)
+function SideBarProd({ product }) {
+  const dispatch = useDispatch();
+  const cardProducts = useSelector((state) => state.card);
 
   useEffect(() => {
-    console.log(cardProducts)
-  }, [cardProducts, product])
+    console.log(cardProducts);
+  }, [cardProducts, product]);
 
   return (
-    <div className="flex items-center justify-between p-4 border-b border-gray-200">
-  <div className="flex items-center gap-4">
-    <img
-      src={product.images[0]} // Replace with the product image URL
-      alt={product.title} // Replace with the product name
-      className="w-16 h-16 object-cover rounded-lg"
-    />
-    <div>
+    
+    <div className="flex items-center justify-between p-4 border-b border-gray-200 w-99">
+      <button onClick={() => dispatch(delete_prod_in_cart(product.id))}>
+        <TbXboxXFilled className="text-red-500"/>
+      </button>
+      <div className="flex items-center gap-4">
       
-      <h5 className="text-lg font-medium">{product.title}</h5> 
-      
-      <p className="text-green-600 font-bold">${product.price}</p> 
+        <img
+          src={product.images[0]} 
+          alt={product.title}
+          className="w-16 h-16 object-cover rounded-lg"
+        />
+        <div>
+          <h5 className="text-lg font-medium">{product.title}</h5>
+
+          <p className="text-green-600 font-bold">
+            ${product.newPrice.toFixed(2)}
+          </p>
+        </div>
+      </div>
+
+      <div className="flex items-center gap-2">
+        <button
+          className="px-2 py-1 bg-gray-200 text-gray-600 rounded hover:bg-gray-300 transition"
+          onClick={() => {
+            return product.quantity === 0
+              ? null
+              : dispatch(decrement_quantity(product.id));
+          }}>
+          -
+        </button>
+        <span className="text-lg font-medium">{product.quantity}</span>
+        <button
+          className="px-2 py-1 bg-gray-200 text-gray-600 rounded hover:bg-gray-300 transition"
+          onClick={() => dispatch(increment_quantity(product.id))}>
+          +
+        </button>
+      </div>
     </div>
-  </div>
-
-  
-  <div className="flex items-center gap-2">
-    <button
-      className="px-2 py-1 bg-gray-200 text-gray-600 rounded hover:bg-gray-300 transition"
-      onClick={() => dispatch(decrement_quantity())} 
-    >
-      -
-    </button>
-    <span className="text-lg font-medium">1</span> 
-    <button
-      className="px-2 py-1 bg-gray-200 text-gray-600 rounded hover:bg-gray-300 transition"
-    //   onClick={() => incrementQuantity(productId)} // Replace with increment handler
-    >
-      +
-    </button>
-  </div>
-</div>
-
-  )
+  );
 }
 
-export default SideBarProd
+export default SideBarProd;
