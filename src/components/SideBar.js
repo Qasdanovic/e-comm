@@ -30,7 +30,7 @@ function SideBar() {
           className="drawer-overlay">
           {" "}
         </label>
-        <ul className="menu bg-base-200 text-base-content min-h-full w-90 p-4">
+        <ul className="menu bg-base-200 text-base-content min-h-full w-96 p-4">
           {/* Sidebar content */}
           <h1 className="font-bold">your cart products</h1>
           {cardProducts?.map((product) =>

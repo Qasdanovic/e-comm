@@ -17,7 +17,7 @@ function SideBarProd({ product }) {
 
   return (
     
-    <div className="flex items-center justify-between p-4 border-b border-gray-200 w-99">
+    <div className="flex items-center justify-between p-4 border-b border-gray-200 w-96">
       <button onClick={() => dispatch(delete_prod_in_cart(product.id))}>
         <TbXboxXFilled className="text-red-500"/>
       </button>
